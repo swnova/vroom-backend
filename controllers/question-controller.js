@@ -35,7 +35,9 @@ module.exports = {
     },
     updateQuestion(req, res){
         Question.findOneAndUpdate({_id: req.params.questionId},
-            {$set: req.body})
+            {$set: req.body},
+            {runValidators: true, new: true}
+            )
         .then((question)=>
             !question
             ? res.status(404).json({message: 'NO question with that ID.'})

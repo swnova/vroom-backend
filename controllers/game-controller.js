@@ -12,6 +12,7 @@ module.exports = {
     // get one game, include questions (get)
     getSingleGame(req,res){
         Game.findOne({_id: req.params.gameId})
+        .select('-_v')
         .populate({ path: 'questions', select: '-_v'})
         .then((game)=>
         !game

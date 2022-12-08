@@ -4,10 +4,14 @@ const {
     getSinglePlayer,
     createPlayer,
     deletePlayer,
+    updatePlayer
 }= require('../../controllers/player-controller');
 
-router.route('/').get(getPlayers).post(createPlayer)
+router.route('/').get(getPlayers).post(createPlayer);
 
-router.route('/:playerId').get(getSinglePlayer).delete(deletePlayer);
+router.route('/:playerId')
+.get(getSinglePlayer)
+.put(updatePlayer)
+.delete(deletePlayer);
 
 module.exports = router;

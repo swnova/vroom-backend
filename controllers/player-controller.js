@@ -34,6 +34,21 @@ module.exports = {
                 : res.json({message: "Player deleted!"})
             )
             .catch((err)=> res.status(500).json(err));
+    },
+    updatePlayer(req, res) {
+        Player.findOneAndUpdate(
+            {_id: req.params.playerId},
+            { $set: req.body},
+        )
+        .then((player)=>
+            !player
+                ?res.status(404).json({ message: 'NO player exists with that ID'})
+                : res.json(player)
+        )
+        .catch((err)=> {
+            console.log(err);
+            res.status(500).json(err);
+        });
     }
 };
 
