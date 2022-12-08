@@ -1,0 +1,23 @@
+[
+    {
+        "playerName": "flexxed up Mik",
+        "email": "mik@gmail.com",
+        "password": "password12",
+        "playerScore": 10,
+        "playerLvl": 2
+    },
+    {
+        "playerName": "indianaJones",
+        "email": "indjones@yahoo.com",
+        "password": "password1234",
+        "playerScore": 15,
+        "playerLvl":2
+    },
+    {
+        "playerName": "guy1000",
+        "email": "thatoneguy@guy.com",
+        "password": "password12345",
+        "playerScore": 20,
+        "playerLvl":3
+    }
+]
