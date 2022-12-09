@@ -13,7 +13,7 @@ module.exports = {
     },
     // get single player 
     getSinglePlayer(req, res) {
-        Player.findOne({_id: req.params.playerId})
+        Player.findOne({_id: req.params.playerId}, {playerName: req.params.playerName})
         .select('-_v')
         .then((player)=>
             !player
