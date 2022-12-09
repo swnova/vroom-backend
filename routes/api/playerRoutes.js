@@ -4,10 +4,13 @@ const {
     getSinglePlayer,
     createPlayer,
     deletePlayer,
-    updatePlayer
+    updatePlayer,
+    playerLogin,
 }= require('../../controllers/player-controller');
 
 router.route('/').get(getPlayers).post(createPlayer);
+
+router.route('/login').post(login)
 
 router.route('/:playerId')
 .get(getSinglePlayer)

@@ -1,4 +1,5 @@
-const router = require('express').Router();
+
+const { signToken } = require('../utils/auth');
 const { Player, Game, Question } = require('../models');
 
 // The `/api/players` endpoint
@@ -49,7 +50,20 @@ module.exports = {
             console.log(err);
             res.status(500).json(err);
         });
-    }
+    },
+    async playerLogin(req, res){
+        const player = await Player.findOne({ $or: [{ playername: req.body.playername}] });
+        if(!player) {
+            return res.status(400).json({ message: "Can't find this player" });
+        }
+        const correctPw = await player.isCorrectPassword(req.body.password);
+        if (!correctPw) {
+            return res.status(400).json({ message: "Wrong Password." });
+        } 
+        const token = signToken(player);
+        res.json({ token, player });
+
+}
 };
 
 // get one player

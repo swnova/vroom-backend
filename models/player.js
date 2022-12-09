@@ -23,5 +23,18 @@ const playerSchema = new Schema(
     }
 );
 
+playerSchema.pre('save', async function (next) {
+    if (this.isNew || this.isModified('password')) {
+        const saltRounds = 4;
+        this.password = await bcrypt.hash(this.password, saltRounds);
+    }
+
+    next();
+});
+
+playerSchema.methods.isCorrectPassword = async function (password) {
+    return bcrypt.compare(password, this.password);
+};
+
 const Player = model('Player', playerSchema);
 module.exports = Player;
