@@ -22,10 +22,14 @@ module.exports = {
         )
         .catch((err)=> res.status(500).json(err));
     },
-    createPlayer(req, res) {
-        Player.create(req.body)
-        .then((player) => res.json(player))
-        .catch((err) => res.status(500).json(err));
+    async createPlayer({body}, res) {
+        const player = await Player.create(body);
+
+        if (!player) {
+            return res.status(400).json({message: 'Something is wrong.'});
+        }
+        const token = signToken(player);
+        res.json({token, player});
     },
     deletePlayer(req, res) {
         Player.findOneAndDelete({_id: req.params.playerId})
