@@ -22,8 +22,8 @@ module.exports = {
         )
         .catch((err)=> res.status(500).json(err));
     },
-    async createPlayer({body}, res) {
-        const player = await Player.create(body);
+    createPlayer({body}, res) {
+        const player = Player.create(body);
 
         if (!player) {
             return res.status(400).json({message: 'Something is wrong.'});
@@ -55,12 +55,12 @@ module.exports = {
             res.status(500).json(err);
         });
     },
-    async playerLogin(req, res){
-        const player = await Player.findOne({ $or: [{ playername: req.body.playername}] });
+     playerLogin(req, res){
+        const player = Player.findOne({ $or: [{ email: req.body.email}] });
         if(!player) {
             return res.status(400).json({ message: "Can't find this player" });
         }
-        const correctPw = await player.isCorrectPassword(req.body.password);
+        const correctPw = player.isCorrectPassword(req.body.password);
         if (!correctPw) {
             return res.status(400).json({ message: "Wrong Password." });
         } 
