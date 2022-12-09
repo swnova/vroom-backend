@@ -5,12 +5,15 @@ const {
     createPlayer,
     deletePlayer,
     updatePlayer,
-    playerLogin,
+    playerLogin
 }= require('../../controllers/player-controller');
+const { authMiddleware } = require('../../utils/auth');
 
 router.route('/').get(getPlayers).post(createPlayer);
 
-router.route('/login').post(login)
+router.route('/login').post(playerLogin);
+
+router.route('/homepage').get(authMiddleware, getSinglePlayer);
 
 router.route('/:playerId')
 .get(getSinglePlayer)
