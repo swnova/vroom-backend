@@ -58,10 +58,12 @@ module.exports = {
      async playerLogin(req, res){
         const player = await Player.findOne({ $or: [{ email: req.body.email}] });
         if(!player) {
+            console.log('wrong player')
             return res.status(400).json({ message: "Can't find this player" });
         }
         const correctPw = await player.isCorrectPassword(req.body.password);
         if (!correctPw) {
+            console.log('wrong password')
             return res.status(400).json({ message: "Wrong Password." });
         } 
         const token = signToken(player);
