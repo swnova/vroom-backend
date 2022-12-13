@@ -19,7 +19,9 @@ const playerSchema = new Schema(
             required: true,
         },
         playerLvl: {
-            type: Number
+            type: Number,
+            default: 0
+        
         }
     }
 );
