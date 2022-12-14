@@ -56,7 +56,7 @@ module.exports = {
         });
     },
      async playerLogin(req, res){
-        const player = await Player.findOne({ $or: [{ email: req.body.email}] });
+        try {const player = await Player.findOne({ $or: [{ email: req.body.email}] });
         if(!player) {
             console.log('wrong player')
             return res.status(400).json({ message: "Can't find this player" });
@@ -68,7 +68,10 @@ module.exports = {
         } 
         const token = signToken(player);
         res.json({ token, player });
-
+    } catch(err){
+        console.log(err)
+        res.status(500).json(err);
+    }
 }
 };
 
