@@ -23,6 +23,9 @@ const playerSchema = new Schema(
             default: 0
         
         }
+         picUrl: {
+            type: string,
+        }
     }
 );
 
